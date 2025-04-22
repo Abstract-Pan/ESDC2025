@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response,jsonify
 import cv2 as cv
 import numpy
 
@@ -41,6 +41,18 @@ def video_feed0():
 @app.route('/video_feed1')
 def video_feed1():
     return Response(gen_frames1(),mimetype = 'multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/button-hold', methods=['POST'])
+def button_hold():
+    # 处理按钮被持续按下的逻辑
+    print("按钮被持续按下")
+    return jsonify({"status": "holding"})
+
+@app.route('/button-release', methods=['POST'])
+def button_release():
+    # 处理按钮释放的逻辑
+    print("按钮已释放")
+    return jsonify({"status": "released"})
 
 if __name__=='__main__':
     app.run(host='0.0.0.0', port=5000)

@@ -1,14 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>camera</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浮动游戏键盘</title>
     <style>
-        .con{
-           float:left;
-           height:600px;width:600px;
-           margin-right:10px;
-        }
         body {
             margin: 0;
             padding: 0;
@@ -96,19 +92,6 @@
     </style>
 </head>
 <body>
-<h3>接受传输来的视频</h3>
-<div class="con">
-    <img src="{{url_for('video_feed0')}}" alt="" width="100%">
-</div>
-<div class="con">
-    <img src="{{url_for('video_feed1')}}" alt="" width="100%">
-</div>
-
-<button id="holdButton" onmousedown="startHold()" onmouseup="endHold()" ontouchstart="startHold()" ontouchend="endHold()">
-    按住我
-</button>
-
-
     <div class="status" id="status">无按键按下</div>
     
     <div class="floating-keyboard">
@@ -236,35 +219,6 @@
                 e.preventDefault();
             }
         }, { passive: false });
-
-let holdInterval;
-let isHolding = false;
-
-function startHold() {
-    isHolding = true;
-    // 立即发送第一次请求
-    sendHoldSignal();
-    // 然后每隔一段时间发送一次
-    holdInterval = setInterval(sendHoldSignal, 200); // 200毫秒发送一次
-}
-
-function endHold() {
-    isHolding = false;
-    clearInterval(holdInterval);
-    // 可选：发送按钮释放的信号
-    fetch('/button-release', {method: 'POST'});
-}
-
-function sendHoldSignal() {
-    if (isHolding) {
-        fetch('/button-hold', {method: 'POST'})
-            .then(response => response.json())
-            .then(data => {
-                // 处理响应
-            });
-    }
-}
-</script>
-
+    </script>
 </body>
 </html>
