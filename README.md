@@ -2,7 +2,6 @@
 
 The hierarchy of this project:
 
-```
 ESDC2025
 * LICENSE
 * mechanical            used for 3D models or other mechanical files
@@ -14,4 +13,3 @@ ESDC2025
   * templates
 * YOLO                  the source code of YOLO model
 * train_data_set        the train data set collected for training
-```
